@@ -1,0 +1,32 @@
+assets.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+highscore_bg
+  rotate: false
+  xy: 2, 2
+  size: 1024, 1023
+  orig: 1024, 1023
+  offset: 0, 0
+  index: -1
+music
+  rotate: false
+  xy: 1028, 345
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+music_off
+  rotate: false
+  xy: 1094, 345
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+point
+  rotate: false
+  xy: 1028, 2
+  size: 332, 341
+  orig: 354, 354
+  offset: 16, 4
+  index: 64
