@@ -62,8 +62,8 @@ public class MainMenu implements Screen{
 		optionSet.addButton(optionSet.new Button("Reset Upgrades", Colour.greenB) { public void execute() { } });
 		optionSet.addButton(optionSet.new Button("Music ( " + game.prefs.getBoolean("music", false) + " )", Colour.greenB) { public void execute() { Assets.setMusic(); optionSet.getButtons().get(3).label =  "Music ( " + Assets.getMusic() + " )"; } });
 		
-		buttonSetThree = new ButtonSet(game, 0, 0.1f * game.getScreenSize().y, game.getScreenSize().x, 0.1f * game.getScreenSize().y, 0, true);
-		buttonSetThree.addButton(buttonSetThree.new Button(Assets.playIcon, game.getScreenSize().y / 20, Colour.greenB) {public void execute() { slide = true; }});
+		//buttonSetThree = new ButtonSet(game, 0, 0.095f * game.getScreenSize().y, game.getScreenSize().x, 0.075f * game.getScreenSize().y, 0, true);
+		//buttonSetThree.addButton(buttonSetThree.new Button("Tap to play", Colour.greenB.r, Colour.greenB.g, Colour.greenB.b, ) {public void execute() {  }});
 		
 		InputHandler = new InputHandler();
 	}
@@ -71,8 +71,9 @@ public class MainMenu implements Screen{
 	public void update() {
 		game.update();
 		slide();
+		lerpAlpha();
 	}
-	
+
 	private float yDelta;
 	private float playAlpha;
 	public void draw() {
@@ -84,7 +85,7 @@ public class MainMenu implements Screen{
 		
 		game.scrollBg.update();
 		buttonSet.render();
-		buttonSetThree.render();
+		//buttonSetThree.render();
 		
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -103,6 +104,11 @@ public class MainMenu implements Screen{
 			game.renderer.setColor(Colour.greenB.r, Colour.greenB.g, Colour.greenB.b, 0.8f);
 			game.layout.setText(Assets.titleFont, "Unshape");
 			game.renderer.rect(0, game.getScreenSize().y * 0.45f + globalY, game.getScreenSize().x, game.getScreenSize().y / 3.4f);
+
+			game.renderer.setColor(Colour.greenB.r, Colour.greenB.g, Colour.greenB.b, 0.8f);
+			game.layout.setText(Assets.titleFont, "Tap to play");
+			game.renderer.rect(0, game.getScreenSize().y * 0.065f + globalY, game.getScreenSize().x, game.getScreenSize().y / 13f);
+
 		} else if(currentSubScreen == SubScreen.options) {
 			game.renderer.setColor(Colour.greenB.r, Colour.greenB.g, Colour.greenB.b, 0.8f);
 			game.layout.setText(Assets.titleFont, "Options");
@@ -115,14 +121,15 @@ public class MainMenu implements Screen{
 
 		if(currentSubScreen == SubScreen.main) {
 			game.layout.setText(Assets.titleFont, "Unshape");
-			Assets.titleFont.draw(game.getBatch(), "Unshape", game.getScreenSize().x * 0.5f - (game.layout.width / 2), game.getScreenSize().y * 0.53f + (game.layout.height / 2 + (game.getScreenSize().y / 9.14f)) + globalY);
+			Assets.titleFont.draw(game.getBatch(), "Unshape", game.getScreenSize().x * 0.5f - (game.layout.width / 2), game.getScreenSize().y * 0.5f + (game.layout.height / 2 + (game.getScreenSize().y / 9.14f)) + globalY);
 
-			game.layout.setText(Assets.subheadingFont, "Level");
-			Assets.subheadingFont.draw(game.getBatch(), "Level", game.getScreenSize().x * 0.5f - (game.layout.width / 2), game.getScreenSize().y * 0.55f + (game.layout.height / 2 - (game.getScreenSize().y / 21.3f)) + globalY);
+			Assets.subheadingFont.setColor(1f,1f,1f,playAlpha);
+			game.layout.setText(Assets.subheadingFont, "Tap to play");
+			Assets.subheadingFont.draw(game.getBatch(), "Tap to play", game.getScreenSize().x * 0.5f - (game.layout.width / 2), game.getScreenSize().y * 0.15f + (game.layout.height / 2 - (game.getScreenSize().y / 21.3f)) + globalY);
 
 			Assets.highscoreFont.setColor(Colour.fTurqoise);
 			game.layout.setText(Assets.highscoreFont, Integer.toString(game.prefs.getInteger("level")));
-			Assets.highscoreFont.draw(game.getBatch(), Integer.toString(game.prefs.getInteger("level")),  game.getScreenSize().x * 0.5f - (game.layout.width / 2), (0.4f * game.getScreenSize().y) + globalY);
+			Assets.highscoreFont.draw(game.getBatch(), Integer.toString(game.prefs.getInteger("level")),  game.getScreenSize().x * 0.51f - (game.layout.width / 2), (0.35f * game.getScreenSize().y) + globalY);
 		} else if(currentSubScreen == SubScreen.options) {
 			game.layout.setText(Assets.titleFont, "Options");
 			Assets.titleFont.draw(game.getBatch(), "Options", game.getScreenSize().x * 0.5f - (game.layout.width / 2), game.getScreenSize().y * 0.63f + (game.layout.height / 2 + (game.getScreenSize().y / 9.14f)) + globalY);
@@ -133,8 +140,8 @@ public class MainMenu implements Screen{
 
 	private int dir = 1;
 	private void lerpAlpha() {
-		playAlpha += dir * 3.5f * Gdx.graphics.getDeltaTime();
-	
+		playAlpha += dir * 1.5f * Gdx.graphics.getDeltaTime();
+
 		if(playAlpha > 1f)
 			dir *= -1;
 		else if(playAlpha < 0)
@@ -231,9 +238,11 @@ public class MainMenu implements Screen{
 		@Override
 		public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 			downY = game.getScreenSize().y - screenY;
-			buttonSet.checkSelection(screenX, downY, false);
-			buttonSetThree.checkSelection(screenX, downY, false);
-			
+
+			if (buttonSet.checkSelection(screenX, downY, false) != true)
+				slide = true;
+
+			//buttonSetThree.checkSelection(screenX, downY, false);
 			if(currentSubScreen == SubScreen.options) {
 				optionSet.checkSelection(screenX, downY, false);
 			}
@@ -246,9 +255,9 @@ public class MainMenu implements Screen{
 			upY = game.getScreenSize().y - screenY;
 			  
 			buttonSet.resetButtons();
-			buttonSetThree.resetButtons();
+			//buttonSetThree.resetButtons();
 			buttonSet.checkSelection(screenX, upY, true);
-			buttonSetThree.checkSelection(screenX, downY, true);
+			//buttonSetThree.checkSelection(screenX, downY, true);
 			
 			if(currentSubScreen == SubScreen.options) {
 				optionSet.resetButtons();

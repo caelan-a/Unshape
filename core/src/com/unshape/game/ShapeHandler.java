@@ -21,7 +21,7 @@ public class ShapeHandler {
 	//	Spawning
 	private Spawner spawner;
 	private Pool pool;
-	
+
 	//	Extras
 	private boolean shapeMidDeath = false;
 	
@@ -82,7 +82,7 @@ public class ShapeHandler {
 				pool.checkIn(pool.inUse.get(i));
 				game.gameScreen.health.setHealth(game.gameScreen.health.getHealth() - 1);
 				//game.gameScreen.getBackground().flash(Colour.orangeA);
-				game.gameScreen.powerUp.interuptSlowDown();
+				//game.gameScreen.powerUp.interuptSlowDown();
 				Gdx.input.vibrate(200);
 			}
 		}

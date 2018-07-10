@@ -32,8 +32,8 @@ public class GameScreen implements Screen {
 	public Difficulty difficulty;
 	public Health health;
 	public Score score;
-	public PowerUp powerUp;
-	public LocalLevel level;
+	//public PowerUp powerUp;
+	//public LocalLevel level;
 	
 	public enum GameState {
 		Running,
@@ -54,8 +54,8 @@ public class GameScreen implements Screen {
 		difficulty 	 = new Difficulty();
 		health 		 = new Health();
 		score		 = new Score();
-		powerUp		 = new PowerUp();
-		level 		 = new LocalLevel();
+		//powerUp		 = new PowerUp();
+		//level 		 = new LocalLevel();
 	}
 	
 	private void update() {		
@@ -65,8 +65,8 @@ public class GameScreen implements Screen {
 		difficulty.update();
 		health.update();
 		score.update();
-		powerUp.update();
-		level.update();
+		//powerUp.update();
+		//level.update();
 		gameState = GameState.Running;
 	}
 
@@ -117,7 +117,7 @@ public class GameScreen implements Screen {
 			Assets.ost.play();
 		else
 			Assets.ost.stop();
-		level.setLevel();
+		//level.setLevel();
 		game.fade.FadeIn(15);
 		gameState = GameState.Running;
 		health.isAlive = true;
@@ -338,7 +338,7 @@ public class GameScreen implements Screen {
 	
 	public class Health {
 		private boolean isAlive = true;
-		private final int MAX_HEALTH = 1;
+		private final int MAX_HEALTH = 7;
 		private int health = MAX_HEALTH;
 
 		public void update() {
@@ -372,7 +372,7 @@ public class GameScreen implements Screen {
 		//	Getters and Setters
 		public void addKill(int amount) {
 			kills += amount;
-			level.advanceProgress(amount);
+			//level.advanceProgress(amount);
 		}
 		
 		public void addScore(int amount) {
@@ -493,11 +493,11 @@ public class GameScreen implements Screen {
 		}
 		
 		public void checkCollision(float x, float y) {
-			if(hud.comboBar.timeBounds.contains(x, y) && timeProgress >= 1) {
-				trigger(1);
-			} else if (hud.comboBar.targetBounds.contains(x, y) && targetProgress >= 1) {
-				trigger(2);
-			}
+			//if(hud.comboBar.timeBounds.contains(x, y) && timeProgress >= 1) {
+			//	trigger(1);
+			//} else if (hud.comboBar.targetBounds.contains(x, y) && targetProgress >= 1) {
+			//	trigger(2);
+			//}
 		}
 		
 		//	Getters and Setters
@@ -547,7 +547,7 @@ public class GameScreen implements Screen {
 		@Override
 		public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 			shapeHandler.checkCollision(screenX, game.getScreenSize().y - screenY);
-			powerUp.checkCollision(screenX, game.getScreenSize().y - screenY);
+			//powerUp.checkCollision(screenX, game.getScreenSize().y - screenY);
 			return false;
 		}
 

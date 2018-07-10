@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.unshape.game.android"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    package="com.unshape.game" >
 
-    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="22" />
- 	<uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="26" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/GdxTheme" android:hardwareAccelerated="true" android:isGame="true">
+        android:theme="@style/GdxTheme" >
         <activity
-            android:name="com.unshape.game.android.AndroidLauncher"
+            android:name="com.unshape.game.AndroidLauncher"
             android:label="@string/app_name" 
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

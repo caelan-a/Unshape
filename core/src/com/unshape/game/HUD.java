@@ -30,9 +30,9 @@ public class HUD {
 	
 	//	Extras
 	public LevelMarker levelMarker;
-	public ComboBar comboBar;
-	public LevelProgress levelProgress;
-	public HealthBar healthBar;
+	//public ComboBar comboBar;
+	//public LevelProgress levelProgress;
+	//public HealthBar healthBar;
 	
 	public EffectPool effectPool;
 	
@@ -40,19 +40,19 @@ public class HUD {
 		this.game = game;
 
 		levelMarker = new LevelMarker();
-		levelProgress = new LevelProgress();
-		healthBar = new HealthBar(0.03f * game.getScreenSize().x, 0.97f * game.getScreenSize().y);
-		comboBar = new ComboBar();
+		//levelProgress = new LevelProgress();
+		//healthBar = new HealthBar(0.03f * game.getScreenSize().x, 0.97f * game.getScreenSize().y);
+		//comboBar = new ComboBar();
 		popupList = new ArrayList<PopUp>();
 		effectPool = new EffectPool();
 	}
 
 	public void draw() {
 		levelMarker.render();
-		levelProgress.draw();
-		healthBar.draw();
+		//levelProgress.draw();
+		//healthBar.draw();
 		
-		comboBar.draw();
+		//comboBar.draw();
 		
 		for(int i = 0; i < popupList.size(); i ++) {
 			popupList.get(i).render();
@@ -63,7 +63,7 @@ public class HUD {
 		//	Score
 		Assets.scoreFont.setColor(Colour.greenC);
 		game.layout.setText(Assets.scoreFont, Integer.toString(game.gameScreen.score.getScore()));
-		//Assets.scoreFont.draw(game.getBatch(), Integer.toString(game.gameScreen.score.getScore()), 20, game.getScreenSize().y - (game.layout.height / 3));
+		Assets.scoreFont.draw(game.getBatch(), Integer.toString(game.gameScreen.score.getScore()), 20, game.getScreenSize().y - (game.layout.height / 3));
 	
 		//	Highscore
 		Assets.scoreFont.setColor(Colour.greenB);
@@ -268,7 +268,7 @@ public class HUD {
 			Gdx.gl.glEnable(GL20.GL_BLEND);
 			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 			
-			progress = game.gameScreen.level.getProgress();
+			//progress = game.gameScreen.level.getProgress();
 			System.out.println(progress);
 			game.renderer.begin(ShapeType.Filled);
 			game.renderer.setColor(colour.r, colour.g, colour.b, 0.85f);
@@ -406,8 +406,8 @@ public class HUD {
 			Gdx.gl.glEnable(GL20.GL_BLEND);
 			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 			
-			timeProgress = game.gameScreen.powerUp.timeProgress;
-			targetProgress = game.gameScreen.powerUp.targetProgress;
+			//timeProgress = game.gameScreen.powerUp.timeProgress;
+			//targetProgress = game.gameScreen.powerUp.targetProgress;
 			
 			if(timeProgress >= 1) {
 				System.out.println(timeAlpha);

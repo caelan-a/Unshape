@@ -12,45 +12,52 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class ButtonSet {
 	private Main game;
-	
+
 	private List<Button> buttons;
-	
+
 	private Rectangle boundary;
 	private float padding;
-	
+
 	private boolean isHorizontal = true;
-	
+
 	//	List Buttons
 	public ButtonSet(Main game, float x, float y, float width, float height, float padding, boolean isHorizontal) {
 		this.game = game;
-		
+
 		buttons = new ArrayList<Button>();
-		
+
 		boundary = new Rectangle();
 		boundary.x = x;
 		boundary.y = y;
 		boundary.width = width;
 		boundary.height = height;
-		
+
 		this.padding = padding;
-		
+
 		this.isHorizontal = isHorizontal;
 	}
 
-	
+
 	public void render() {
-		for(Button b : buttons)
+		for (Button b : buttons)
 			b.render();
-	}	
-	
-	
-	public void checkSelection(float touchX, float touchY, boolean isSelected) {
-		for(Button b : buttons)
-			if(b.getBounds().contains(touchX, touchY)) 
-				if(isSelected)
+	}
+
+
+	public boolean checkSelection(float touchX, float touchY, boolean isSelected) {
+		boolean touched = false;
+		for (Button b : buttons) {
+			if (b.getBounds().contains(touchX, touchY)) {
+				if (isSelected)
 					b.execute();
 				else
 					b.isPressed = true;
+				touched = true;
+			} else {
+				touched = false;
+			}
+		}
+		return touched;
 	}
 	
 	public void addButton(Button button) {

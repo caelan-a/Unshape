@@ -33,7 +33,7 @@ public class Animator {
 				if(shape.getDrawablePoints().size() < 1) {
 					Assets.chime.play();
 					game.gameScreen.score.addScore(shape.worth);
-					game.gameScreen.powerUp.advanceTimeProgress(0.1f);
+					//game.gameScreen.powerUp.advanceTimeProgress(0.1f);
 					game.gameScreen.score.addKill(1);
 					game.gameScreen.getShapeHandler().getPool().checkIn(shape); 
 				}

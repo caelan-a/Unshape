@@ -28,7 +28,7 @@ public class Level {
 	}
 	
 	public static void setShapeCount(int duration) {
-		game.gameScreen.level.shapeCount = duration;
+		//game.gameScreen.level.shapeCount = duration;
 		game.gameScreen.getShapeHandler().getSpawner().shapesToSpawn = duration;
 		game.gameScreen.getShapeHandler().getSpawner().shapesSpawned = 0;
 	}
